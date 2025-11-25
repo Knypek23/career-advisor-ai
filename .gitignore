@@ -1,0 +1,31 @@
+# Pliki środowiska
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Logi
+*.log
+stderr.log
+
+# Tymczasowe pliki
+tmp/
+restart.txt
+
+# Backup bazy danych
+*.sql.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

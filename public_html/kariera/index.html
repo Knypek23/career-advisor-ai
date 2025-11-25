@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doradca Zawodowy</title>
+  </head>
+  <style>
+    :root {
+      --font-size: 100%;
+      --font-header: 160%;
+      --hover-size: 200%;
+      --header-bg: #1e1e1e;
+      --bg-color: #fff;
+      --btn2-bg: #000;
+      --btn34-bg: #fc6868;
+      --hd-txt: #b6b6b6;
+      --msg-user-bg: #007bff;
+      --chat-border: #161616;
+      --textbox-bg: #aaa;
+      --msg-bot-bg: #f1f1f1;
+      --msg-bot-cl: #222;
+      --nav-txt: #000;
+    }
+    html {
+      font-size: var(--font-size);
+    }
+    body {
+      margin: 0px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      overflow-x: hidden;
+    }
+    header {
+      height: 85px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: var(--header-bg);
+      color: var(--hd-txt);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-size: var(--font-size);
+      border-bottom: 1px solid var(--chat-border);
+    }
+
+    .left,
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .left {
+      gap: 50px;
+      text-shadow: 3px 1px 6px rgba(66, 68, 90, 1);
+    }
+
+    .left div a {
+      font-weight: bold;
+      cursor: pointer;
+      font-size: var(--font-header);
+      transition: font-size 0.3s;
+      text-decoration: none;
+      color: var(--hd-txt);
+    }
+    .left div a:hover {
+      font-size: var(--hover-size);
+      color: var(--bg-color);
+    }
+
+    .right button:not(.kont1, .kont2) {
+      background-color: var(--btn34-bg);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      color: var(--bg-color);
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .right button:hover:not(.kont1, .kont2) {
+      color: var(--btn34-bg);
+      background-color: var(--bg-color);
+    }
+    .kont1:hover {
+      background-color: var(--btn2-bg);
+      color: var(--bg-color);
+    }
+    .kont2:hover {
+      background-color: #ffff00;
+      color: #000000;
+    }
+    .kont1 {
+      background-color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .kont2 {
+      background-color: #000000;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      color: #ffff00;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--nav-txt);
+      text-align: center;
+      padding: 20px;
+    }
+    .nav-title {
+      animation: fadeSlide 1.2s ease-out forwards;
+      opacity: 0;
+    }
+
+    .nav-subtitle {
+      animation: fadeSlide 1.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .nav-title {
+      animation: fadeSlide 1.2s ease-out forwards, pulse 4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .jak-dziala {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      margin-top: 20px;
+    }
+
+    .jak-dziala h2 {
+      text-align: center;
+      color: var(--nav-txt);
+      margin-bottom: 25px;
+    }
+
+    .kontener {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 25px;
+      padding-bottom: 10px;
+      width: 100%;
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .karta {
+      background: var(--msg-bot-bg);
+      border: 1px solid var(--chat-border);
+      padding: 22px 20px;
+      border-radius: 16px;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: cardFade 0.9s forwards ease-out;
+    }
+
+    .karta:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .karta:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .karta h3 {
+      margin-bottom: 10px;
+      text-align: center;
+      color: var(--nav-txt);
+    }
+
+    .karta p {
+      text-align: center;
+      color: var(--msg-bot-cl);
+    }
+
+    @keyframes cardFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    main {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .czat {
+      border-radius: 17px;
+      border: 1px solid var(--chat-border);
+      height: 500px;
+      width: 95%;
+      max-width: 800px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    #textbox {
+      padding: 12px 15px;
+      font-size: var(--font-size);
+      border: 1px solid var(--textbox-bg);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 450px;
+    }
+    .send {
+      background: var(--btn2-bg);
+      border-radius: 12px;
+      padding: 10px 24px;
+      color: var(--bg-color);
+      transition: 0.2s;
+      border: 0;
+      cursor: pointer;
+      font-size: var(--font-size);
+      margin-left: 10px;
+    }
+    .send:hover {
+      background: var(--chat-border);
+      transform: translateY(-2px);
+    }
+    .wiado {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .wiado div {
+      max-width: 70%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: var(--font-size);
+      line-height: 1.4;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      word-wrap: break-word;
+    }
+    .msg_user {
+      align-self: flex-end;
+      background: var(--msg-user-bg);
+      color: var(--bg-color);
+      border-bottom-right-radius: 4px;
+    }
+    .msg_bot {
+      align-self: flex-start;
+      background: var(--msg-bot-bg);
+      color: var(--msg-bot-cl);
+      border-bottom-left-radius: 4px;
+    }
+    .txt {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      border-top: 1px solid var(--chat-border);
+    }
+    .loading {
+      opacity: 0.7;
+      font-style: italic;
+    }
+
+    .prototype-warning {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffeb3b;
+      border: 3px solid #ff9800;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      font-family: Arial, sans-serif;
+      animation: slideIn 0.5s ease-out;
+      font-size: var(--font-size);
+      color: var(--nav-txt);
+    }
+
+    .prototype-warning.hidden {
+      display: none;
+    }
+
+    .prototype-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding-bottom: 8px;
+    }
+
+    .prototype-title {
+      font-weight: bold;
+      color: #d32f2f;
+      font-size: calc(var(--font-size) * 1.1);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .close-warning {
+      background: none;
+      border: 2px solid transparent;
+      font-size: 20px;
+      cursor: pointer;
+      color: #666;
+      padding: 4px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .close-warning:hover,
+    .close-warning:focus {
+      color: #000;
+      background: rgba(0, 0, 0, 0.1);
+      border-color: #666;
+      outline: none;
+    }
+
+    .prototype-content {
+      font-size: var(--font-size);
+      line-height: 1.4;
+      color: #333;
+      margin: 0 0 12px 0;
+    }
+
+    .prototype-badge {
+      display: inline-block;
+      background: #ff5722;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: calc(var(--font-size) * 0.8);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .prototype-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+    }
+
+    .prototype-btn {
+      background: var(--btn34-bg);
+      border: 2px solid transparent;
+      padding: 6px 12px;
+      border-radius: 5px;
+      color: var(--bg-color);
+      cursor: pointer;
+      font-weight: bold;
+      font-size: calc(var(--font-size) * 0.9);
+      transition: all 0.2s ease;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .prototype-btn:hover,
+    .prototype-btn:focus {
+      background: var(--bg-color);
+      color: var(--btn34-bg);
+      border-color: var(--btn34-bg);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .prototype-btn.kont1 {
+      background: var(--bg-color);
+      color: var(--btn2-bg);
+      border: 2px solid var(--btn2-bg);
+    }
+
+    .prototype-btn.kont1:hover,
+    .prototype-btn.kont1:focus {
+      background: var(--btn2-bg);
+      color: var(--bg-color);
+    }
+
+    .prototype-btn.kont2 {
+      background: var(--btn2-bg);
+      color: #ffff00;
+      border: 2px solid #ffff00;
+    }
+
+    .prototype-btn.kont2:hover,
+    .prototype-btn.kont2:focus {
+      background: #ffff00;
+      color: var(--btn2-bg);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .prototype-warning.high-contrast {
+      background: #ffff00 !important;
+      border: 3px solid #000000 !important;
+      color: #000000 !important;
+    }
+
+    .prototype-warning.high-contrast .prototype-content {
+      color: #000000 !important;
+    }
+
+    .prototype-warning.high-contrast .prototype-title {
+      color: #000000 !important;
+    }
+
+    .prototype-warning.high-contrast .prototype-badge {
+      background: #000000 !important;
+      color: #ffff00 !important;
+    }
+
+    .prototype-warning.high-contrast .close-warning {
+      color: #000000 !important;
+      border-color: #000000 !important;
+    }
+
+    @media (max-width: 768px) {
+      .prototype-warning {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        bottom: 10px;
+      }
+
+      .prototype-controls {
+        justify-content: center;
+      }
+
+      .prototype-btn {
+        flex: 1;
+        min-width: 60px;
+      }
+      header {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        gap: 10px;
+      }
+      .right,
+      .left {
+        width: 100%;
+        display: flex;
+      }
+      .right {
+        justify-content: center;
+      }
+      .left {
+        justify-content: space-around;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .prototype-warning {
+        animation: none;
+      }
+
+      .prototype-btn:hover {
+        transform: none;
+      }
+    }
+    @media (max-width: 768px) {
+      .prototype-warning {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+      }
+
+      .prototype-warning.overlay {
+        width: 90%;
+        max-width: 300px;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <div class="left">
+        <div><a href="index.html">Czat</a></div>
+        <div><a href="cel_projektu.html">Cel</a></div>
+        <div><a href="autorzy.html">Autorzy</a></div>
+      </div>
+      <div class="right">
+        <button class="kont1" id="kontrast1">A</button>
+        <button class="kont2" id="kontrast2">A</button>
+        <button id="Plus">A+</button>
+        <button id="Minus">A-</button>
+      </div>
+    </header>
+    <nav>
+      <h1 class="nav-title">
+        Nie wiesz jaki zawód wybrać? Porozmawiaj z naszym czatbotem!
+      </h1>
+      <h4 class="nav-subtitle">
+        Nasza strona doradzi Ci ścieżki kariery na podstawie Twoich
+        zainteresowań, predyspozycji i preferencji.
+      </h4>
+    </nav>
+    <section class="jak-dziala">
+      <h2>Jak działa nasz czatbot?</h2>
+
+      <div class="kontener">
+        <div class="karta">
+          <h3>1. Analiza Twojej wiadomości</h3>
+          <p>
+            Czatbot rozpoznaje, które przedmioty lubisz, a które sprawiają
+            trudność, oraz czy piszesz na poważnie czy żartem.
+          </p>
+        </div>
+
+        <div class="karta">
+          <h3>2. Ocena predyspozycji</h3>
+          <p>
+            System dopasowuje Twoje odpowiedzi do kategorii takich jak nauki
+            ścisłe, artystyczne czy humanistyczne.
+          </p>
+        </div>
+
+        <div class="karta">
+          <h3>3. Propozycja zawodu</h3>
+          <p>
+            Bot wskazuje najbardziej odpowiednie ścieżki edukacji i zawody
+            pasujące do Twoich umiejętności.
+          </p>
+        </div>
+      </div>
+    </section>
+    <main>
+      <div class="czat">
+        <div class="wiado" id="chat-messages">
+          <div class="msg_bot">
+            Cześć! Jestem Twoim asystentem doradztwa zawodowego. 😊
+          </div>
+          <div class="msg_bot">
+            Opowiedz mi proszę o swoich przedmiotach szkolnych - które Ci idą
+            dobrze, a które sprawiają Ci trudność? To pomoże mi lepiej doradzić
+            Ci w wyborze zawodu.
+          </div>
+        </div>
+        <div class="txt">
+          <input
+            type="text"
+            id="textbox"
+            placeholder="Napisz o swoich przedmiotach szkolnych..."
+          />
+          <button class="send" id="send-btn">Wyślij</button>
+        </div>
+      </div>
+    </main>
+
+    <div id="prototypeWarning" class="prototype-warning">
+      <div class="prototype-header">
+        <h3 class="prototype-title">
+          <span class="prototype-badge">BETA</span>
+          Informacja
+        </h3>
+        <button class="close-warning" onclick="closePrototypeWarning()">
+          ×
+        </button>
+      </div>
+      <p class="prototype-content">
+        ⚠️ To jest <strong>wersja prototypowa</strong> aplikacji.<br />
+        Może zawierać błędy i tymczasowe ograniczenia.<br />
+        Jeśli zauważysz nieprawidłowe działanie zrestartuj stronę i powiadom nas o tym.<br />
+        Dziękujemy za testowanie! 🚀
+      </p>
+    </div>
+
+    <script>
+      function showPrototypeWarning() {
+        const warning = document.getElementById("prototypeWarning");
+        warning.classList.remove("hidden");
+
+        setTimeout(() => {
+          if (!warning.classList.contains("hidden")) {
+            closePrototypeWarning();
+          }
+        }, 15000);
+      }
+
+      function closePrototypeWarning() {
+        const warning = document.getElementById("prototypeWarning");
+        warning.classList.add("hidden");
+
+        localStorage.setItem("prototypeWarningClosed", "true");
+      }
+
+      function initPrototypeWarning() {
+        const warningClosed = localStorage.getItem("prototypeWarningClosed");
+
+        if (!warningClosed) {
+          setTimeout(showPrototypeWarning, 2000);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initPrototypeWarning);
+      const plusBtn = document.getElementById("Plus");
+      const minusBtn = document.getElementById("Minus");
+      const YlBlck = document.getElementById("kontrast2");
+      const Kontrast = document.getElementById("kontrast1");
+      const warning = document.getElementById("prototypeWarning");
+
+      plusBtn.addEventListener("click", PlusSize);
+      minusBtn.addEventListener("click", MinusSize);
+      YlBlck.addEventListener("click", kontrast2);
+      Kontrast.addEventListener("click", kontrast1);
+
+      function kontrast1() {
+        const root = document.documentElement;
+        root.style.setProperty("--header-bg", "#1e1e1e");
+        root.style.setProperty("--bg-color", "#fff");
+        root.style.setProperty("--btn2-bg", "#000");
+        root.style.setProperty("--btn34-bg", "#fc6868");
+        root.style.setProperty("--hd-txt", "#b6b6b6");
+        root.style.setProperty("--msg-user-bg", "#007bff");
+        root.style.setProperty("--chat-border", "#161616");
+        root.style.setProperty("--textbox-bg", "#aaa");
+        root.style.setProperty("--msg-bot-bg", "#f1f1f1");
+        root.style.setProperty("--msg-bot-cl", "#222");
+        root.style.setProperty("--nav-txt", "#000");
+        warning.classList.remove("high-contrast");
+        warning.style.setProperty("--bg-color", "#fff");
+        warning.style.setProperty("--nav-txt", "#000");
+      }
+
+      function kontrast2() {
+        const root = document.documentElement;
+        root.style.setProperty("--header-bg", "#000000");
+        root.style.setProperty("--bg-color", "#000000");
+        root.style.setProperty("--btn2-bg", "#FFD600");
+        root.style.setProperty("--btn34-bg", "#FFD600");
+        root.style.setProperty("--hd-txt", "#FFD600");
+        root.style.setProperty("--msg-user-bg", "#FFD600");
+        root.style.setProperty("--chat-border", "#FFD600");
+        root.style.setProperty("--textbox-bg", "#1a1a1a");
+        root.style.setProperty("--msg-bot-bg", "#111111");
+        root.style.setProperty("--msg-bot-cl", "#FFD600");
+        root.style.setProperty("--nav-txt", "#FFD600");
+        warning.classList.add("high-contrast");
+        warning.style.setProperty("--bg-color", "#000000");
+        warning.style.setProperty("--nav-txt", "#FFD600");
+      }
+
+      function PlusSize() {
+        let rozmiar = getComputedStyle(document.documentElement)
+          .getPropertyValue("--font-size")
+          .trim();
+        rozmiar = parseInt(rozmiar.replace("%", ""));
+        let nowy = rozmiar + 20;
+        if (nowy > 150) nowy = 150;
+        document.documentElement.style.setProperty("--font-size", nowy + "%");
+      }
+
+      function MinusSize() {
+        let rozmiar = getComputedStyle(document.documentElement)
+          .getPropertyValue("--font-size")
+          .trim();
+        rozmiar = parseInt(rozmiar.replace("%", ""));
+        let nowy = rozmiar - 20;
+        if (nowy < 50) nowy = 50;
+        document.documentElement.style.setProperty("--font-size", nowy + "%");
+      }
+
+      const NODE_SERVER_URL = "https://srv98741.seohost.com.pl"; // http://localhost:3000
+      const PHP_SERVER_URL = "https://srv98741.seohost.com.pl/kariera/php/";
+      let etapCzat = "przedmioty"; // 'przedmioty' | 'cechy' | 'wyniki'
+      let ostatnieZawody = [];
+      let dostepneCechy = [];
+
+      const chatMessages = document.getElementById("chat-messages");
+      const messageInput = document.getElementById("textbox");
+      const sendBtn = document.getElementById("send-btn");
+
+      function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = isUser ? "msg_user" : "msg_bot";
+        messageDiv.innerHTML = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      async function pobierzSugerowaneZawody(
+        przedmioty,
+        zabronionePrzedmioty = []
+      ) {
+        try {
+          console.log("Wysyłam żądanie do proxy Node.js:", przedmioty);
+
+          const response = await fetch(
+            `${NODE_SERVER_URL}/api/suggest-careers`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                przedmioty: przedmioty,
+                zabronione_przedmioty: zabronionePrzedmioty,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          console.log("Otrzymano odpowiedź:", data);
+
+          if (data.success) {
+            if (data.zawody.length > 0) {
+              addMessage(
+                `Znaleziono ${data.liczba_znalezionych_zawodow} pasujących zawodów! 🎉`,
+                false
+              );
+
+              data.zawody.forEach((zawod, index) => {
+                const nazwaZawodu =
+                  zawod.nazwa_zawodu[0].toUpperCase() +
+                  zawod.nazwa_zawodu.slice(1);
+                const linkDoZawodu = `https://mapakarier.org/sciezki-kariery/${zawod.id_zawodu}/m/${zawod.nazwa_zawodu}`;
+
+                addMessage(
+                  `${
+                    index + 1
+                  }. ${nazwaZawodu} - <a href="${linkDoZawodu}" target="_blank" style="color: #007bff; text-decoration: underline;">link do zawodu</a>`,
+                  false
+                );
+              });
+            } else {
+              addMessage(
+                "Niestety nie znalazłem zawodów pasujących do Twoich przedmiotów. Spróbujmy jeszcze raz - może masz inne zainteresowania?",
+                false
+              );
+            }
+          } else {
+            addMessage(
+              "Przepraszam, wystąpił problem z wyszukiwaniem zawodów: " +
+                (data.error || "Nieznany błąd"),
+              false
+            );
+          }
+
+          return data;
+        } catch (error) {
+          console.error("Błąd pobierania zawodów:", error);
+          addMessage(
+            "Przepraszam, wystąpił błąd połączenia z bazą zawodów: " +
+              error.message,
+            false
+          );
+          return null;
+        }
+      }
+
+      function przetwarzanieDanych1(jsonData) {
+        console.log("Otrzymane dane z analizy:", jsonData);
+
+        if (jsonData.powazna) {
+          const przedmiotyDoWyszukania = {};
+          Object.entries(jsonData.przedmioty).forEach(([przedmiot, poziom]) => {
+            if (poziom !== "brak" && poziom !== "zabroniony") {
+              przedmiotyDoWyszukania[przedmiot] = poziom;
+            }
+          });
+
+          const zabronionePrzedmioty = jsonData.zabronione_przedmioty || [];
+
+          if (Object.keys(przedmiotyDoWyszukania).length >= 2) {
+            addMessage(
+              "Analizuję Twoje przedmioty i szukam pasujących zawodów... 🔍",
+              false
+            );
+
+            pobierzSugerowaneZawody(
+              przedmiotyDoWyszukania,
+              zabronionePrzedmioty
+            ).then((data) => {
+              if (data && data.zawody && data.zawody.length > 0) {
+                ostatnieZawody = data.zawody;
+
+                setTimeout(() => {
+                  addMessage(
+                    "Świetnie! Znaleziono zawody pasujące do Twoich przedmiotów. 🎯",
+                    false
+                  );
+                  addMessage(
+                    "Teraz opowiedz mi proszę o swoich cechach charakteru - np. czy jesteś komunikatywny, systematyczny, kreatywny? Co Cię charakteryzuje? 😊",
+                    false
+                  );
+                  etapCzat = "cechy";
+
+                  pobierzDostepneCechy();
+                }, 1000);
+              }
+            });
+          } else {
+            addMessage(
+              "Potrzebuję informacji o przynajmniej 2 przedmiotach, żeby móc zaproponować Ci zawody. Możesz opowiedzieć mi o więcej przedmiotach? 📚",
+              false
+            );
+          }
+        }
+      }
+
+      async function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        addMessage(message, true);
+        messageInput.value = "";
+
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "msg_bot loading";
+        loadingDiv.textContent = "Analizuję Twoją wiadomość...";
+        chatMessages.appendChild(loadingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+          const response = await fetch(
+            `${NODE_SERVER_URL}/api/analyze-subjects`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ message }),
+            }
+          );
+
+          const data = await response.json();
+
+          chatMessages.removeChild(loadingDiv);
+
+          if (data.success) {
+            addMessage(data.odpowiedz, false);
+
+            przetwarzanieDanych1(data);
+          } else {
+            addMessage("Przepraszam, wystąpił błąd. Spróbuj ponownie.", false);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          chatMessages.removeChild(loadingDiv);
+          addMessage(
+            "Przepraszam, wystąpił błąd połączenia z serwerem AI. Spróbuj ponownie.",
+            false
+          );
+        }
+      }
+
+      sendBtn.addEventListener("click", sendMessage);
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      async function pobierzDostepneCechy() {
+        try {
+          const response = await fetch(
+            `${NODE_SERVER_URL}/api/character-traits`
+          );
+          const data = await response.json();
+
+          if (data.success) {
+            dostepneCechy = data.cechy_charakteru;
+            console.log("Pobrano cechy:", dostepneCechy);
+          }
+        } catch (error) {
+          console.error("Błąd pobierania cech:", error);
+        }
+      }
+
+      async function analizujCechyCharakteru(message) {
+        try {
+          addMessage("Analizuję Twoje cechy charakteru... 🔍", false);
+
+          const response = await fetch(
+            `${NODE_SERVER_URL}/api/analyze-traits`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: message,
+                availableTraits: dostepneCechy,
+              }),
+            }
+          );
+
+          const data = await response.json();
+
+          if (data.success && data.cechy_uzytkownika.length > 0) {
+            addMessage(
+              `Wykryłem następujące cechy: ${data.cechy_uzytkownika.join(
+                ", "
+              )} 👍`,
+              false
+            );
+            addMessage(
+              "Szukam zawodów pasujących do Twojego charakteru...",
+              false
+            );
+
+            const zawodyZCech = await znajdzZawodyPrzezCechy(
+              data.cechy_uzytkownika
+            );
+
+            polaczWynikiZawodow(ostatnieZawody, zawodyZCech);
+          } else {
+            addMessage(
+              "Nie udało się wykryć konkretnych cech charakteru. Spróbuj opisać się bardziej szczegółowo - np. 'Jestem osobą komunikatywną, lubię pracę w zespole, jestem kreatywny'.",
+              false
+            );
+          }
+        } catch (error) {
+          console.error("Błąd analizy cech:", error);
+          addMessage(
+            "Przepraszam, wystąpił błąd podczas analizy cech charakteru. Spróbuj ponownie.",
+            false
+          );
+        }
+      }
+
+      async function znajdzZawodyPrzezCechy(cechy) {
+        try {
+          const response = await fetch(
+            `${NODE_SERVER_URL}/api/find-careers-by-traits`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                cechy_charakteru: cechy,
+                limit: 15,
+              }),
+            }
+          );
+
+          const data = await response.json();
+
+          if (data.success) {
+            return data.zawody;
+          }
+          return [];
+        } catch (error) {
+          console.error("Błąd wyszukiwania zawodów przez cechy:", error);
+          return [];
+        }
+      }
+
+      function polaczWynikiZawodow(zawodyZPrzedmiotow, zawodyZCech) {
+        const mapaZawodow = new Map();
+
+        zawodyZPrzedmiotow.forEach((zawod) => {
+          mapaZawodow.set(zawod.nazwa_zawodu, {
+            ...zawod,
+            punkty: 2,
+            zrodlo: "przedmioty",
+          });
+        });
+
+        zawodyZCech.forEach((zawod) => {
+          if (mapaZawodow.has(zawod.alias)) {
+            const istniejący = mapaZawodow.get(zawod.alias);
+            mapaZawodow.set(zawod.alias, {
+              ...istniejący,
+              punkty: istniejący.punkty + 1,
+              zrodlo: "obie",
+            });
+          } else {
+            mapaZawodow.set(zawod.alias, {
+              nazwa_zawodu: zawod.alias,
+              wymagane_przedmioty: zawod.wymagane_przedmioty,
+              liczba_pasujacych_przedmiotow: 0,
+              pasujace_cechy: zawod.pasujace_cechy,
+              liczba_pasujacych_cech: zawod.liczba_pasujacych_cech,
+              punkty: 1,
+              zrodlo: "cechy",
+            });
+          }
+        });
+
+        const posortowaneZawody = Array.from(mapaZawodow.values())
+          .sort((a, b) => b.punkty - a.punkty)
+          .slice(0, 10);
+
+        wyswietlPolaczoneWyniki(posortowaneZawody);
+      }
+
+      function wyswietlPolaczoneWyniki(zawody) {
+        addMessage(
+          "🎉 Oto Twoje spersonalizowane rekomendacje zawodowe: \n🎯 - idealnie dopasowane; \n📚 - może Ci się spodobać"
+        );
+
+        if (zawody.length === 0) {
+          addMessage(
+            "Niestety nie znaleziono zawodów pasujących do Twoich kryteriów. Spróbujmy jeszcze raz z innymi przedmiotami lub cechami.",
+            false
+          );
+          etapCzat = "przedmioty";
+          return;
+        }
+
+        zawody.forEach((zawod, index) => {
+          let emoji = "⭐";
+          if (zawod.zrodlo === "obie") emoji = "🎯";
+          else if (zawod.zrodlo === "przedmioty") emoji = "📚";
+          else if (zawod.zrodlo === "cechy") emoji = "💫";
+          const nazwaZawodu = zawod.nazwa_zawodu[0].toUpperCase() + zawod.nazwa_zawodu.slice(1);
+          const linkDoZawodu = `https://mapakarier.org/sciezki-kariery/${zawod.id_zawodu}/m/${zawod.nazwa_zawodu}`;
+
+          addMessage(
+            `${emoji} ${index + 1}. ${
+              nazwaZawodu
+            } - <a href="${linkDoZawodu}" target="_blank" style="color: #007bff; text-decoration: underline;">link do zawodu</a>`,
+            false
+          );
+        });
+
+        addMessage(
+          "Który z tych zawodów najbardziej Cię interesuje? Możesz je na spokojnie posprawdzać, a jeżeli chcesz zacząć od nowa pisać to odśwież stronę lub napisz 'NOWA KONWERSACJA'",
+          false
+        );
+        etapCzat = "wyniki";
+      }
+
+      async function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        addMessage(message, true);
+        messageInput.value = "";
+
+        if (etapCzat === "przedmioty") {
+          const loadingDiv = document.createElement("div");
+          loadingDiv.className = "msg_bot loading";
+          loadingDiv.textContent = "Analizuję Twoją wiadomość...";
+          chatMessages.appendChild(loadingDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          try {
+            const response = await fetch(
+              `${NODE_SERVER_URL}/api/analyze-subjects`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message }),
+              }
+            );
+
+            const data = await response.json();
+            chatMessages.removeChild(loadingDiv);
+
+            if (data.success) {
+              addMessage(data.odpowiedz, false);
+              przetwarzanieDanych1(data);
+            } else {
+              addMessage(
+                "Przepraszam, wystąpił błąd. Spróbuj ponownie.",
+                false
+              );
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            chatMessages.removeChild(loadingDiv);
+            addMessage(
+              "Przepraszam, wystąpił błąd połączenia. Spróbuj ponownie.",
+              false
+            );
+          }
+        } else if (etapCzat === "cechy") {
+          analizujCechyCharakteru(message);
+        } else if (etapCzat === "wyniki") {
+          addMessage(
+            "Rozumiem! Zacznijmy od nowa. Opowiedz mi o swoich przedmiotach szkolnych...",
+            false
+          );
+          etapCzat = "przedmioty";
+          ostatnieZawody = [];
+        }
+      }
+      messageInput.focus();
+    </script>
+  </body>
+</html>

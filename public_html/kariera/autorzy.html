@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorzy projektu</title>
+    <style>
+:root{
+        --font-size: 100%;
+        --font-header: 160%;
+        --hover-size: 200%;
+        --header-bg: #1e1e1e;
+        --bg-color: #fff;
+        --btn2-bg: #000;
+        --btn34-bg: #fc6868;
+        --hd-txt: #b6b6b6;
+        --msg-user-bg: #007bff;
+        --chat-border: #161616;
+        --textbox-bg: #aaa;
+        --msg-bot-bg: #f1f1f1;
+        --msg-bot-cl: #222;
+        --nav-txt: #000;
+    }
+    html {
+        font-size: var(--font-size);
+    }
+    body{
+        margin:0px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        overflow-x: hidden;
+    }
+    header {
+        height: 85px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: var(--header-bg);
+        color: var(--hd-txt);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        font-size: var(--font-size);
+        border-bottom: 1px solid var(--chat-border);
+    }
+
+    .left, .right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .left{
+        gap:50px;
+        text-shadow: 3px 1px 6px rgba(66, 68, 90, 1);
+    }
+
+    .left div a{
+        font-weight: bold;
+        cursor: pointer;
+        font-size: var(--font-header);
+        transition: font-size 0.3s;
+    }
+    .left div a:hover{
+        font-size: var(--hover-size);
+        color: var(--bg-color);
+    }
+
+    .right button:not(.kont1,.kont2) {
+        background-color: var(--btn34-bg);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: var(--bg-color);
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .right button:hover:not(.kont1,.kont2){
+        color: var(--btn34-bg);
+        background-color: var(--bg-color);
+    }
+    .kont1:hover{
+        background-color: var(--btn2-bg);
+        color: var(--bg-color);
+    }
+    .kont2:hover{
+        background-color: #ffff00;
+        color: #000000;
+    }
+    .kont1{
+        background-color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    .kont2{
+        background-color: #000000;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: #ffff00;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        main{
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1{ 
+            font-size: 3rem; 
+            margin-bottom: 60px; 
+            color: var(--msg-bot-cl);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px rgba(0,0,0,0.1); }
+            to { text-shadow: 0 0 20px rgba(0,0,0,0.2); }
+        }
+
+        .authors-container {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+        }
+
+        .author-card {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .author-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .author-card:hover .author-inner {
+            transform: rotateY(180deg);
+        }
+
+        .author-front, .author-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .author-front {
+            background: linear-gradient(135deg, var(--msg-bot-bg) 0%, #e0e0e0 100%);
+            color: var(--msg-bot-cl);
+        }
+
+        .author-back {
+            background: var(--msg-bot-cl);
+            color: var(--bg-color);
+            transform: rotateY(180deg);
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--msg-bot-cl);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--bg-color);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .author-card:hover .author-avatar {
+            transform: scale(1.1);
+        }
+
+        .author-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .author-initials {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--bg-color);
+            margin-bottom: 20px;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(50px) rotateX(-90deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        .author-card {
+            animation: cardAppear 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .author-card:nth-child(1) { animation-delay: 0.2s; }
+        .author-card:nth-child(2) { animation-delay: 0.4s; }
+        .author-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .team-subtitle {
+            font-size: 1.4rem;
+            color: var(--msg-bot-cl);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        a{
+            text-decoration: none;
+            color: var(--hd-txt);
+        }
+         @media (max-width: 768px) {
+    header{
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        gap: 10px;
+    }
+    .right, .left{
+        width: 100%;
+        display: flex;
+    }
+    .right{
+        justify-content: center;
+    }
+    .left{
+        justify-content: space-around;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <div><a href="index.html">Czat</a></div>
+            <div><a href="cel_projektu.html">Cel</a></div>
+            <div><a href="autorzy.html">Autorzy</a></div>
+        </div>
+        <div class="right">
+            <button class="kont1" id="kontrast1">A</button>
+            <button class="kont2" id="kontrast2">A</button>
+            <button id="Plus">A+</button>
+            <button id="Minus">A-</button>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="floating">Twórcy Projektu</h1>
+        <div class="team-subtitle">Zespół stojący za innowacyjnym narzędziem doradztwa zawodowego</div>
+
+        <div class="authors-container">
+            <div class="author-card">
+                <div class="author-inner">
+                    <div class="author-front">
+                        <div class="author-avatar">FP</div>
+                        <div class="author-name">Filip Pazdan</div>
+                    </div>
+                    <div class="author-back">
+                        <div class="author-initials">FP</div>
+                        <div class="author-name">Filip Pazdan</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="author-card">
+                <div class="author-inner">
+                    <div class="author-front">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-name">Maciej Cyrnek</div>
+                    </div>
+                    <div class="author-back">
+                        <div class="author-initials">MC</div>
+                        <div class="author-name">Maciej Cyrnek</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="author-card">
+                <div class="author-inner">
+                    <div class="author-front">
+                        <div class="author-avatar">KŚ</div>
+                        <div class="author-name">Kamil Święch</div>
+                    </div>
+                    <div class="author-back">
+                        <div class="author-initials">KŚ</div>
+                        <div class="author-name">Kamil Święch</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+
+const plusBtn = document.getElementById("Plus");
+const minusBtn = document.getElementById("Minus");
+const YlBlck = document.getElementById("kontrast2");
+const Kontrast = document.getElementById("kontrast1");
+
+plusBtn.addEventListener("click", PlusSize);
+minusBtn.addEventListener("click", MinusSize);
+YlBlck.addEventListener('click', kontrast2);
+Kontrast.addEventListener('click', kontrast1);
+
+function kontrast1(){
+    const root = document.documentElement;
+    root.style.setProperty('--header-bg', '#1e1e1e');
+    root.style.setProperty('--bg-color', '#fff');
+    root.style.setProperty('--btn2-bg', '#000');
+    root.style.setProperty('--btn34-bg', '#fc6868');
+    root.style.setProperty('--hd-txt', '#b6b6b6');
+    root.style.setProperty('--msg-user-bg', '#007bff');
+    root.style.setProperty('--chat-border', '#161616');
+    root.style.setProperty('--textbox-bg', '#aaa');
+    root.style.setProperty('--msg-bot-bg', '#f1f1f1');
+    root.style.setProperty('--msg-bot-cl', '#222');
+    root.style.setProperty('--nav-txt', '#000');
+}
+
+function kontrast2(){
+    const root = document.documentElement;
+    root.style.setProperty('--header-bg', '#000000');
+    root.style.setProperty('--bg-color', '#000000');
+    root.style.setProperty('--btn2-bg', '#FFD600');
+    root.style.setProperty('--btn34-bg', '#FFD600');
+    root.style.setProperty('--hd-txt', '#FFD600');
+    root.style.setProperty('--msg-user-bg', '#FFD600');
+    root.style.setProperty('--chat-border', '#FFD600');
+    root.style.setProperty('--textbox-bg', '#1a1a1a');
+    root.style.setProperty('--msg-bot-bg', '#111111');
+    root.style.setProperty('--msg-bot-cl', '#FFD600');
+    root.style.setProperty('--nav-txt', '#FFD600');
+}
+
+function PlusSize(){
+    let rozmiar = getComputedStyle(document.documentElement)
+    .getPropertyValue('--font-size')
+    .trim();
+
+    rozmiar = parseInt(rozmiar.replace("%", ""));
+
+    let nowy = rozmiar + 20;
+    if(nowy>200){
+        nowy = 200;
+    }
+
+    document.documentElement.style.setProperty('--font-size', nowy + "%");
+}
+
+function MinusSize(){
+    let rozmiar = getComputedStyle(document.documentElement)
+    .getPropertyValue('--font-size')
+    .trim();
+
+    rozmiar = parseInt(rozmiar.replace("%", ""));
+
+    let nowy = rozmiar - 20;
+    if(nowy<50){
+        nowy = 50;
+    }
+
+    document.documentElement.style.setProperty('--font-size', nowy + "%");
+}
+</script>
+</body>
+</html>

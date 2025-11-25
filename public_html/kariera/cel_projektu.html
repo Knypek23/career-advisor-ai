@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cel projektu</title>
+    <style>
+      :root {
+        --font-size: 100%;
+        --font-header: 160%;
+        --hover-size: 200%;
+        --header-bg: #1e1e1e;
+        --bg-color: #fff;
+        --btn2-bg: #000;
+        --btn34-bg: #fc6868;
+        --hd-txt: #b6b6b6;
+        --msg-user-bg: #007bff;
+        --chat-border: #161616;
+        --textbox-bg: #aaa;
+        --msg-bot-bg: #f1f1f1;
+        --msg-bot-cl: #222;
+        --nav-txt: #000;
+      }
+      html {
+        font-size: var(--font-size);
+      }
+      body {
+        margin: 0px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        overflow-x: hidden;
+      }
+      header {
+        height: 85px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: var(--header-bg);
+        color: var(--hd-txt);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: var(--font-size);
+        border-bottom: 1px solid var(--chat-border);
+      }
+
+      .left,
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .left {
+        gap: 50px;
+        text-shadow: 3px 1px 6px rgba(66, 68, 90, 1);
+      }
+
+      .left div a {
+        font-weight: bold;
+        cursor: pointer;
+        font-size: var(--font-header);
+        transition: font-size 0.3s;
+      }
+      .left div a:hover {
+        font-size: var(--hover-size);
+        color: var(--bg-color);
+      }
+
+      .right button:not(.kont1, .kont2) {
+        background-color: var(--btn34-bg);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: var(--bg-color);
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .right button:hover:not(.kont1, .kont2) {
+        color: var(--btn34-bg);
+        background-color: var(--bg-color);
+      }
+      .kont1:hover {
+        background-color: var(--btn2-bg);
+        color: var(--bg-color);
+      }
+      .kont2:hover {
+        background-color: #ffff00;
+        color: #000000;
+      }
+      .kont1 {
+        background-color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: #000;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .kont2 {
+        background-color: #000000;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 5px;
+        color: #ffff00;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      main {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .typing-container {
+        width: 90%;
+        max-width: 800px;
+        position: relative;
+        text-align: center;
+      }
+
+      .typing {
+        white-space: pre-line;
+        font-size: 1.6rem;
+        color: var(--msg-bot-cl);
+        margin: 0;
+        line-height: 1.7;
+        text-align: center;
+        min-height: 150px;
+        display: inline-block;
+      }
+
+      .cursor {
+        display: inline;
+        animation: blink 0.7s infinite;
+        font-weight: bold;
+      }
+
+      .click-hint {
+        margin-top: 20px;
+        font-size: 1rem;
+        color: #7f8c8d;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 2s forwards;
+        font-style: italic;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .fast-typing {
+        animation: fastType 0.8s ease-out;
+      }
+
+      @keyframes fastType {
+        0% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      a {
+        text-decoration: none;
+        color: var(--hd-txt);
+      }
+      .typing a {
+        color: var(--msg-bot-cl);
+        font-weight: 900;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          gap: 10px;
+        }
+        .right,
+        .left {
+          width: 100%;
+          display: flex;
+        }
+        .right {
+          justify-content: center;
+        }
+        .left {
+          justify-content: space-around;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="left">
+        <div><a href="index.html">Czat</a></div>
+        <div><a href="cel_projektu.html">Cel</a></div>
+        <div><a href="autorzy.html">Autorzy</a></div>
+      </div>
+      <div class="right">
+        <button class="kont1" id="kontrast1">A</button>
+        <button class="kont2" id="kontrast2">A</button>
+        <button id="Plus">A+</button>
+        <button id="Minus">A-</button>
+      </div>
+    </header>
+
+    <main>
+      <h1>Cel projektu</h1>
+      <div class="typing-container">
+        <p class="typing"></p>
+      </div>
+      <div class="click-hint">
+        Kliknij, aby przyspieszyć wyświetlanie tekstu
+      </div>
+    </main>
+
+    <script>
+      const text =
+        "Naszym celem jest stworzenie intuicyjnego narzędzia, które pomaga w wyborze właściwej ścieżki kariery poprzez analizę zainteresowań i predyspozycji użytkownika. System analizuje również oceny szkolne, identyfikując naturalne predyspozycje do określonych dziedzin. Dzięki temu użytkownik otrzymuje spersonalizowane rekomendacje, które uwzględniają zarówno jego pasje, jak i obiektywne wyniki osiągane w szkole. Zródło danych: <a href='https://mapakarier.org/'>Mapa Karier</a>";
+      let i = 0;
+      let speed = 40;
+      let isTyping = true;
+      let fastMode = false;
+      const el = document.querySelector(".typing");
+
+      const plusBtn = document.getElementById("Plus");
+      const minusBtn = document.getElementById("Minus");
+      const YlBlck = document.getElementById("kontrast2");
+      const Kontrast = document.getElementById("kontrast1");
+
+      plusBtn.addEventListener("click", PlusSize);
+      minusBtn.addEventListener("click", MinusSize);
+      YlBlck.addEventListener("click", kontrast2);
+      Kontrast.addEventListener("click", kontrast1);
+
+      function kontrast1() {
+        const root = document.documentElement;
+        root.style.setProperty("--header-bg", "#1e1e1e");
+        root.style.setProperty("--bg-color", "#fff");
+        root.style.setProperty("--btn2-bg", "#000");
+        root.style.setProperty("--btn34-bg", "#fc6868");
+        root.style.setProperty("--hd-txt", "#b6b6b6");
+        root.style.setProperty("--msg-user-bg", "#007bff");
+        root.style.setProperty("--chat-border", "#161616");
+        root.style.setProperty("--textbox-bg", "#aaa");
+        root.style.setProperty("--msg-bot-bg", "#f1f1f1");
+        root.style.setProperty("--msg-bot-cl", "#222");
+        root.style.setProperty("--nav-txt", "#000");
+      }
+
+      function kontrast2() {
+        const root = document.documentElement;
+        root.style.setProperty("--header-bg", "#000000");
+        root.style.setProperty("--bg-color", "#000000");
+        root.style.setProperty("--btn2-bg", "#FFD600");
+        root.style.setProperty("--btn34-bg", "#FFD600");
+        root.style.setProperty("--hd-txt", "#FFD600");
+        root.style.setProperty("--msg-user-bg", "#FFD600");
+        root.style.setProperty("--chat-border", "#FFD600");
+        root.style.setProperty("--textbox-bg", "#1a1a1a");
+        root.style.setProperty("--msg-bot-bg", "#111111");
+        root.style.setProperty("--msg-bot-cl", "#FFD600");
+        root.style.setProperty("--nav-txt", "#FFD600");
+      }
+
+      function PlusSize() {
+        let rozmiar = getComputedStyle(document.documentElement)
+          .getPropertyValue("--font-size")
+          .trim();
+
+        rozmiar = parseInt(rozmiar.replace("%", ""));
+
+        let nowy = rozmiar + 20;
+        if (nowy > 200) {
+          nowy = 200;
+        }
+
+        document.documentElement.style.setProperty("--font-size", nowy + "%");
+      }
+
+      function MinusSize() {
+        let rozmiar = getComputedStyle(document.documentElement)
+          .getPropertyValue("--font-size")
+          .trim();
+
+        rozmiar = parseInt(rozmiar.replace("%", ""));
+
+        let nowy = rozmiar - 20;
+        if (nowy < 50) {
+          nowy = 50;
+        }
+
+        document.documentElement.style.setProperty("--font-size", nowy + "%");
+      }
+
+      function type() {
+        if (i < text.length && isTyping) {
+          el.innerHTML = el.textContent.replace("|", "");
+          el.innerHTML =
+            text.substring(0, i + 1) + '<span class="cursor">|</span>';
+          i++;
+          const currentSpeed = fastMode ? 10 : speed;
+          setTimeout(type, currentSpeed);
+        } else if (i >= text.length) {
+          el.innerHTML = text;
+        }
+      }
+
+      function accelerateTyping() {
+        if (isTyping && !fastMode) {
+          fastMode = true;
+          el.classList.add("fast-typing");
+          setTimeout(() => {
+            el.classList.remove("fast-typing");
+          }, 750);
+        }
+      }
+
+      document.addEventListener("click", accelerateTyping);
+      document.addEventListener("click", function () {
+        const hint = document.querySelector(".click-hint");
+        if (hint) {
+          hint.style.opacity = "0";
+          setTimeout(() => hint.remove(), 500);
+        }
+      });
+
+      type();
+    </script>
+  </body>
+</html>
